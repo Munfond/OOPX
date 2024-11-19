@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 public class CollectNameAndUrl {
-    private static final int MAX_KOLS = 50;
+    private static final int MAX_KOLS = 10;
 
     public Map<String, String> collectKOLData(WebDriver driver) {
         JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
