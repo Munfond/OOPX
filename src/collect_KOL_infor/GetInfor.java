@@ -1,6 +1,5 @@
 package collect_KOL_infor;
 
-//import java.util.List;
 import java.util.Map;
 import java.util.AbstractMap;
 import java.util.HashMap;
@@ -49,10 +48,10 @@ public class GetInfor {
                         WebElement ownerElement = tweet.findElement(By.xpath(".//a[contains(@href, '/status/')]"));
                         String tweetUrl = ownerElement.getAttribute("href");
 
-                        // Lấy tên chủ bài viết
-                        WebElement userElement = tweet.findElement(By.xpath(".//div[@data-testid='User-Name']//span"));
+                        // Lấy link chủ bài viết
+                        WebElement userElement = tweet.findElement(By.xpath(".//div[@data-testid='User-Name']//a"));
                         String ownerName = userElement.getAttribute("href");
-
+                        
                         // Thêm vào Set nếu chưa có
                         AbstractMap.SimpleEntry<String, String> entry = new AbstractMap.SimpleEntry<>(ownerName, tweetUrl);
                         this.check.tweetInfo.add(entry);
