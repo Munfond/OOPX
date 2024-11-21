@@ -22,6 +22,7 @@ public class CollectEngine {
 	public void init(WebDriver driver) {
 //		get.getX("https://x.com/ChainPeople");
 //		get.getFollowers();	
+		collect.setMAX_KOLS(100);
 		kolData = collect.collectKOLData(driver);
 	}
 

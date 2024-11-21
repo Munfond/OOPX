@@ -29,7 +29,7 @@ public class CollectCreateNode {
 
 	            for (String follower : infor.getCheck().getFollowers()) {
 	                bw.write(follower);
-	                bw.newLine();
+		            bw.newLine();
 	            }
 	        }
 

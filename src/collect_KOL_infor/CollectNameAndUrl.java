@@ -13,7 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 public class CollectNameAndUrl {
-    private static final int MAX_KOLS = 10;
+    private int MAX_KOLS;
+    
 
     public Map<String, String> collectKOLData(WebDriver driver) {
         JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
@@ -62,5 +63,17 @@ public class CollectNameAndUrl {
 
         return kolData;
     }
+
+
+	public int getMAX_KOLS() {
+		return MAX_KOLS;
+	}
+
+
+	public void setMAX_KOLS(int mAX_KOLS) {
+		MAX_KOLS = mAX_KOLS;
+	}
+    
+    
     
 }

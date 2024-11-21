@@ -10,7 +10,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 public class GetInfor {
-	final static int MAX_TWEETS = 20;
+	final static int MAX_TWEETS = 50;
 	InforOfKOL check;
 	WebDriver driver;
 	
@@ -23,6 +23,7 @@ public class GetInfor {
 	
 	public void getFollowers(String url) {
 		CollectNameAndUrl collect = new CollectNameAndUrl();
+		collect.setMAX_KOLS(50);
 		Map<String,String> followersUrl = new HashMap<>();
 		this.driver.get(url + "/followers");
 	    followersUrl = collect.collectKOLData(this.driver);
@@ -48,11 +49,9 @@ public class GetInfor {
                         WebElement ownerElement = tweet.findElement(By.xpath(".//a[contains(@href, '/status/')]"));
                         String tweetUrl = ownerElement.getAttribute("href");
 
-                        // Lấy link chủ bài viết
                         WebElement userElement = tweet.findElement(By.xpath(".//div[@data-testid='User-Name']//a"));
                         String ownerName = userElement.getAttribute("href");
                         
-                        // Thêm vào Set nếu chưa có
                         AbstractMap.SimpleEntry<String, String> entry = new AbstractMap.SimpleEntry<>(ownerName, tweetUrl);
                         this.check.tweetInfo.add(entry);
 
