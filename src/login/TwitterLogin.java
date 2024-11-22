@@ -32,9 +32,14 @@ public class TwitterLogin {
 	}
 	
 	public void fillGmail() {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		String gmail = account.getGmail();
-		WebElement gmailField = driver.findElement(By.name("text"));
-		gmailField.sendKeys(gmail + Keys.ENTER);
+		try {
+            WebElement gmailField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("text")));
+            gmailField.sendKeys(gmail + Keys.ENTER);
+        } catch (Exception e) {
+            System.out.println("Không cần nhập gmail, chuyển sang nhập username.");
+        }
 		try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
@@ -62,7 +67,7 @@ public class TwitterLogin {
 		String password = account.getPassword();
 		WebElement passwordField = driver.findElement(By.name("password"));
         passwordField.sendKeys(password + Keys.ENTER);
-        try {
+		try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();

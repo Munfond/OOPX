@@ -14,7 +14,7 @@ public class FileEngine {
 	public void settingFile(Map<String,String> KOLData, WebDriver driver) {
 		for(Map.Entry<String, String> entry : KOLData.entrySet()) {
 			CollectCreateNode node = new CollectCreateNode(driver);
-			node.printFile(entry.getValue(), entry.getValue(), file.getBw());
+			node.printFile(entry.getValue(), file.getBw());
 		}
 	}
 	

@@ -13,11 +13,13 @@ public class CollectCreateNode {
 		this.infor = new GetInfor(driver);
 	}
 	
-	public void printFile(String name, String url, BufferedWriter bw) {
+	public void printFile(String url, BufferedWriter bw) {
 	    try {
-	        bw.write(name);
+	    	String username = url.substring(url.lastIndexOf("/") + 1);
+	    	
+	        bw.write(url + " " + username);
 	        bw.newLine();
-
+	        
 	        this.infor.getFollowers(url); // Gọi hàm lấy danh sách follower
 	        this.infor.getTweet(url); // Gọi hàm lấy thông tin tweet
 

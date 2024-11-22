@@ -11,6 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 public class GetInfor {
 	final static int MAX_TWEETS = 50;
+	final static int MAX_FOLLOWERS = 50;
 	InforOfKOL check;
 	WebDriver driver;
 	
@@ -23,7 +24,7 @@ public class GetInfor {
 	
 	public void getFollowers(String url) {
 		CollectNameAndUrl collect = new CollectNameAndUrl();
-		collect.setMAX_KOLS(50);
+		collect.setMAX_KOLS(MAX_FOLLOWERS);
 		Map<String,String> followersUrl = new HashMap<>();
 		this.driver.get(url + "/followers");
 	    followersUrl = collect.collectKOLData(this.driver);
@@ -40,7 +41,7 @@ public class GetInfor {
         int scrollCount = 0;
 
         try {
-            while (this.check.tweetInfo.size() < 20 && scrollCount < 10) {
+            while (this.check.tweetInfo.size() < MAX_TWEETS && scrollCount < (MAX_TWEETS / 2)) {
                 List<WebElement> tweets = driver.findElements(By.cssSelector("article"));
 
                 for (WebElement tweet : tweets) {
