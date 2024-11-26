@@ -105,6 +105,7 @@ public class GetInfor {
 	
 	public void getTweet(String url) {
 		this.driver.get(url);
+        setMAX_TWEETS(50);
 		JavascriptExecutor js = (JavascriptExecutor) driver;
         int scrollCount = 0;
 
