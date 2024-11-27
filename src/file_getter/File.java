@@ -9,7 +9,7 @@ public class File {
 	
 	public File() {
 		try {
-			fw = new FileWriter("fw.txt");
+			fw = new FileWriter("fw.csv");
 			bw = new BufferedWriter(fw);
 		} catch(Exception e) {
 			System.out.println("Lỗi khởi tạo file");

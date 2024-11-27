@@ -10,8 +10,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 public class GetInfor {
-	private int MAX_TWEETS;
-    private int MAX_FOLLOWERS;
+	private int maxTweets;
+    private int maxFollowers;
 	InforOfKOL check;
 	WebDriver driver;
 	
@@ -90,9 +90,9 @@ public class GetInfor {
 	}
 	
 	public void getFollowers(String url) {
-		setMAX_FOLLOWERS(Math.max(getNumberOfFollowers(url) / 5000, 50));
+		setMaxFollowers(getNumberFollowers(getNumberOfFollowers(url)));
 		CollectNameAndUrl collect = new CollectNameAndUrl();
-		collect.setMAX_KOLS(MAX_FOLLOWERS);
+		collect.setMAX_KOLS(this.maxFollowers);
 		Map<String,String> followersUrl = new HashMap<>();
 		this.driver.get(url + "/followers");
 	    followersUrl = collect.collectKOLData(this.driver);
@@ -101,18 +101,17 @@ public class GetInfor {
 	    }
 		
 	}
-
 	
 	public void getTweet(String url) {
+        setMaxTweets(50);
 		this.driver.get(url);
-        setMAX_TWEETS(50);
 		JavascriptExecutor js = (JavascriptExecutor) driver;
         int scrollCount = 0;
 
         try {
-            while (this.check.tweetInfo.size() < MAX_TWEETS && scrollCount < (MAX_TWEETS / 2)) {
+            while (this.check.tweetInfo.size() < maxTweets && scrollCount < (maxTweets / 2)) {
                 List<WebElement> tweets = driver.findElements(By.cssSelector("article"));
-
+                boolean checkBreak = true;
                 for (WebElement tweet : tweets) {
                     try {
                         // Tìm phần tử chứa URL bài tweet
@@ -125,7 +124,8 @@ public class GetInfor {
                         AbstractMap.SimpleEntry<String, String> entry = new AbstractMap.SimpleEntry<>(ownerName, tweetUrl);
                         this.check.tweetInfo.add(entry);
 
-                        if (this.check.tweetInfo.size() >= 20) {
+                        if (this.check.tweetInfo.size() >= maxTweets) {
+                            checkBreak = false;
                             break;
                         }
                     } catch (Exception e) {
@@ -137,40 +137,53 @@ public class GetInfor {
                 js.executeScript("window.scrollBy(0, 1000);");
                 Thread.sleep(3000); // Chờ nội dung tải thêm
                 scrollCount++;
+
+                if(checkBreak == false) {
+                    break;
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         } 
+	}
+
+    public int getNumberFollowers(int numberFollowers) {
+		if (numberFollowers < 1000) {
+			return 30;
+		} else if (numberFollowers < 10000) {
+			return 50;
+		} else if (numberFollowers < 100000) {
+			return 100;
+		} else if (numberFollowers < 500000) {
+			return 150;
+		} else if (numberFollowers < 1000000) {
+			return 200;
+		} else {
+			return 300;
+		}
 	}
 	
 	public InforOfKOL getCheck() {
 		return this.check;
 	}
 
+    public int getMaxTweets() {
+        return maxTweets;
+    }
 
+    public void setMaxTweets(int maxTweets) {
+        this.maxTweets = maxTweets;
+    }
 
-	public int getMAX_TWEETS() {
-		return MAX_TWEETS;
-	}
+    public int getMaxFollowers() {
+        return maxFollowers;
+    }
 
+    public void setMaxFollowers(int maxFollowers) {
+        this.maxFollowers = maxFollowers;
+    }
 
-
-	public void setMAX_TWEETS(int mAX_TWEETS) {
-		MAX_TWEETS = mAX_TWEETS;
-	}
-
-
-
-	public int getMAX_FOLLOWERS() {
-		return MAX_FOLLOWERS;
-	}
-
-
-
-	public void setMAX_FOLLOWERS(int mAX_FOLLOWERS) {
-		MAX_FOLLOWERS = mAX_FOLLOWERS;
-	}
-
+    
 
 
 	
