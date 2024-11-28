@@ -5,9 +5,9 @@ import java.util.AbstractMap;
 import java.util.HashSet;
 
 public class InforOfKOL {
-	public String nameOfKOL;
-	public Set<String> followers;
-	public Set<AbstractMap.SimpleEntry<String, String>> tweetInfo;
+	private String nameOfKOL;
+	private Set<String> followers;
+	private Set<AbstractMap.SimpleEntry<String, String>> tweetInfo;
 	
 	
 	public InforOfKOL() {

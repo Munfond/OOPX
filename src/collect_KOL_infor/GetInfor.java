@@ -90,14 +90,14 @@ public class GetInfor {
 	}
 	
 	public void getFollowers(String url) {
-		setMaxFollowers(getNumberFollowers(getNumberOfFollowers(url)));
+		setMaxFollowers(50);
 		CollectNameAndUrl collect = new CollectNameAndUrl();
 		collect.setMAX_KOLS(this.maxFollowers);
 		Map<String,String> followersUrl = new HashMap<>();
 		this.driver.get(url + "/followers");
 	    followersUrl = collect.collectKOLData(this.driver);
 	    for(Map.Entry<String,String> entry: followersUrl.entrySet()) {
-	    	this.check.followers.add(entry.getValue());
+	    	this.check.getFollowers().add(entry.getValue());
 	    }
 		
 	}
@@ -109,7 +109,7 @@ public class GetInfor {
         int scrollCount = 0;
 
         try {
-            while (this.check.tweetInfo.size() < maxTweets && scrollCount < (maxTweets / 2)) {
+            while (this.check.getTweetInfo().size() < maxTweets && scrollCount < (maxTweets / 2)) {
                 List<WebElement> tweets = driver.findElements(By.cssSelector("article"));
                 boolean checkBreak = true;
                 for (WebElement tweet : tweets) {
@@ -122,9 +122,9 @@ public class GetInfor {
                         String ownerName = userElement.getAttribute("href");
                         
                         AbstractMap.SimpleEntry<String, String> entry = new AbstractMap.SimpleEntry<>(ownerName, tweetUrl);
-                        this.check.tweetInfo.add(entry);
+                        this.check.getTweetInfo().add(entry);
 
-                        if (this.check.tweetInfo.size() >= maxTweets) {
+                        if (this.check.getTweetInfo().size() >= maxTweets) {
                             checkBreak = false;
                             break;
                         }
@@ -147,21 +147,6 @@ public class GetInfor {
         } 
 	}
 
-    public int getNumberFollowers(int numberFollowers) {
-		if (numberFollowers < 1000) {
-			return 30;
-		} else if (numberFollowers < 10000) {
-			return 50;
-		} else if (numberFollowers < 100000) {
-			return 100;
-		} else if (numberFollowers < 500000) {
-			return 150;
-		} else if (numberFollowers < 1000000) {
-			return 200;
-		} else {
-			return 300;
-		}
-	}
 	
 	public InforOfKOL getCheck() {
 		return this.check;
@@ -181,6 +166,10 @@ public class GetInfor {
 
     public void setMaxFollowers(int maxFollowers) {
         this.maxFollowers = maxFollowers;
+    }
+
+    public void setCheck(InforOfKOL check) {
+        this.check = check;
     }
 
     
