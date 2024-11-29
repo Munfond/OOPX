@@ -12,9 +12,7 @@ public class LoginEngine {
 	
 	public void init() {
 		setUp.getInfor();
-		login.account.setGmail(setUp.getGmail());
-		login.account.setUsername(setUp.getUsername());
-		login.account.setPassword(setUp.getPassword());
+		login.setAccount(setUp.getAccount());
 		
 		login.getToX();
 		login.fillGmail();

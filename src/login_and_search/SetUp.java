@@ -11,10 +11,12 @@ import java.io.File;
 
 
 public class SetUp {
-	private String gmail;
-	private String username;
-	private String password;
+	private AccountDetails account;
 	private String accountInforPath;
+
+	public SetUp(){
+		this.account = new AccountDetails();
+	}
 	
 	public void getInfor() {
 		try {
@@ -26,24 +28,17 @@ public class SetUp {
 			System.out.println("Có lỗi xảy ra khi đọc file: " + e.getMessage());
 		}
 		try (BufferedReader br = new BufferedReader(new FileReader(accountInforPath))) {
-            this.gmail = br.readLine();  
-            this.username = br.readLine();
-            this.password = br.readLine();  
+            account.setGmail(br.readLine());
+            account.setUsername(br.readLine());
+            account.setPassword(br.readLine());
         } catch (IOException e) {
             System.out.println("Có lỗi xảy ra khi đọc file: " + e.getMessage());
         }
 	}
 
-	public String getGmail() {
-		return this.gmail;
+	public AccountDetails getAccount() {
+		return account;
 	}
-
-	public String getUsername() {
-		return this.username;
-	}
-
-	public String getPassword() {
-		return this.password;
-	}
+	
 	
 }

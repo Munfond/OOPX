@@ -81,4 +81,15 @@ public class TwitterLogin {
 	public WebDriver getWebDriver() {
 		return this.driver;
 	}
+
+	public void setAccount(AccountDetails account) {
+		this.account = account;
+	}
+
+	
+
+	
+
+
+	
 }
