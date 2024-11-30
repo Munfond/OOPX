@@ -5,11 +5,11 @@ import java.util.AbstractMap;
 
 import org.openqa.selenium.WebDriver;
 
-public class CollectCreateNode {
+public class PersonDataWriter {
 	private GetInfor infor;
 	private String logInfor = "";
 	
-	public CollectCreateNode(WebDriver driver) {
+	public PersonDataWriter(WebDriver driver) {
 		this.infor = new GetInfor(driver);
 	}
 	
@@ -47,10 +47,23 @@ public class CollectCreateNode {
 			} catch(IOException e) {
 				e.printStackTrace();
 			}
-
-			
-
-	
-	
     }
+
+	public GetInfor getInfor() {
+		return infor;
+	}
+
+	public void setInfor(GetInfor infor) {
+		this.infor = infor;
+	}
+
+	public String getLogInfor() {
+		return logInfor;
+	}
+
+	public void setLogInfor(String logInfor) {
+		this.logInfor = logInfor;
+	}
+
+	
 }

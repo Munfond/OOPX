@@ -8,20 +8,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CollectEngine {
-	public Map<String,String> kolData;
-	CollectNameAndUrl collect;
-//	GetInfor get;
+	private Map<String,String> kolData;
+	private CollectNameAndUrl collect;
 	
 	
 	public CollectEngine() {
 		this.kolData = new HashMap<>();
 		this.collect = new CollectNameAndUrl();
-//		this.get = new GetInfor(driver);
 	}
 	
 	public void init(WebDriver driver) {
-//		get.getX("https://x.com/ChainPeople");
-//		get.getFollowers();	
 		collect.setMAX_KOLS(100);
 		kolData = collect.collectKOLData(driver);
 	}

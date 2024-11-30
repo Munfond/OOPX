@@ -7,7 +7,7 @@ import java.io.FileWriter;
 
 import org.openqa.selenium.WebDriver;
 
-import collect_KOL_infor.CollectCreateNode;
+import collect_KOL_infor.PersonDataWriter;
 
 public class FileEngine {
 	private String filepath = "src/output/data.csv";
@@ -23,8 +23,13 @@ public class FileEngine {
             try(FileWriter fw = new FileWriter(this.filepath)) {
                 fw.append("Link,Username,CountFollowers,Followers,CountTweets,Tweets\n");
                 for(Map.Entry<String, String> entry : KOLData.entrySet()) {
-                    CollectCreateNode node = new CollectCreateNode(driver);
-                    node.printFile(entry.getValue(), this.filepath, fw);
+                    PersonDataWriter node = new PersonDataWriter(driver);
+                    
+                    if(node.getInfor().getNumberOfFollowers(entry.getValue()) >= 100000) {
+                        node.printFile(entry.getValue(), this.filepath, fw);
+                        System.out.println("Lưu thông tin node thành công");
+                    }
+                    
                 }
             }
     

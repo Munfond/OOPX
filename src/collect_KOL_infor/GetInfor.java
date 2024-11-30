@@ -90,7 +90,7 @@ public class GetInfor {
 	}
 	
 	public void getFollowers(String url) {
-		setMaxFollowers(50);
+		setMaxFollowers(100);
 		CollectNameAndUrl collect = new CollectNameAndUrl();
 		collect.setMAX_KOLS(this.maxFollowers);
 		Map<String,String> followersUrl = new HashMap<>();
@@ -103,7 +103,7 @@ public class GetInfor {
 	}
 	
 	public void getTweet(String url) {
-        setMaxTweets(50);
+        setMaxTweets(200);
 		this.driver.get(url);
 		JavascriptExecutor js = (JavascriptExecutor) driver;
         int scrollCount = 0;

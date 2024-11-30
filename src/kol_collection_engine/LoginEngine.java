@@ -2,8 +2,8 @@ package kol_collection_engine;
 
 import login_and_search.*;
 public class LoginEngine {
-	public TwitterLogin login;
-	public SetUp setUp;
+	private TwitterLogin login;
+	private SetUp setUp;
 	
 	public LoginEngine() {
 		this.login = new TwitterLogin();

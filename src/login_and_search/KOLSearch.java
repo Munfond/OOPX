@@ -6,8 +6,8 @@ import org.openqa.selenium.WebElement;
 
 
 public class KOLSearch {
-	public String searchKeyword;
-	public WebElement searchBox;
+	private  String searchKeyword;
+	private WebElement searchBox;
 	
 	public void setsearchKeyword(String searchKeyword) {
 		this.searchKeyword = searchKeyword;
@@ -34,4 +34,26 @@ public class KOLSearch {
             e.printStackTrace();
         }
 	}
+
+    public void returnToNextHashtag(WebDriver driver) {
+        driver.get("https://x.com/home");
+    }
+
+    public String getSearchKeyword() {
+        return searchKeyword;
+    }
+
+    public void setSearchKeyword(String searchKeyword) {
+        this.searchKeyword = searchKeyword;
+    }
+
+    public WebElement getSearchBox() {
+        return searchBox;
+    }
+
+    public void setSearchBox(WebElement searchBox) {
+        this.searchBox = searchBox;
+    }
+
+    
 }

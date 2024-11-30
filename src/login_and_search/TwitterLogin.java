@@ -13,8 +13,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 public class TwitterLogin {
-	public WebDriver driver;
-	public AccountDetails account;
+	private WebDriver driver;
+	private AccountDetails account;
 	
 	
 	public TwitterLogin () {
