@@ -90,7 +90,7 @@ public class GetInfor {
 	}
 	
 	public void getFollowers(String url) {
-		setMaxFollowers(100);
+		setMaxFollowers(70);
 		CollectNameAndUrl collect = new CollectNameAndUrl();
 		collect.setMAX_KOLS(this.maxFollowers);
 		Map<String,String> followersUrl = new HashMap<>();
@@ -134,7 +134,7 @@ public class GetInfor {
                 }
 
                 // Cuộn trang xuống để tải thêm nội dung
-                js.executeScript("window.scrollBy(0, 1000);");
+                js.executeScript("window.scrollBy(0, 500);");
                 Thread.sleep(3000); // Chờ nội dung tải thêm
                 scrollCount++;
 
