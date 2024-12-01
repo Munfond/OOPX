@@ -23,7 +23,7 @@ public class CollectNameAndUrl {
             int attempts = 0;
             int previousSize = 0;
 
-            while (kolData.size() < MAX_KOLS && attempts < (MAX_KOLS / 5)) {
+            while (kolData.size() < MAX_KOLS && attempts < MAX_KOLS) {
                 // Đợi phần tử xuất hiện
                 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
                 List<WebElement> kolProfiles = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(

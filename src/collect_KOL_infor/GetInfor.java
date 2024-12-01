@@ -109,7 +109,7 @@ public class GetInfor {
         int scrollCount = 0;
 
         try {
-            while (this.check.getTweetInfo().size() < maxTweets && scrollCount < (maxTweets / 2)) {
+            while (this.check.getTweetInfo().size() < maxTweets && scrollCount < maxTweets) {
                 List<WebElement> tweets = driver.findElements(By.cssSelector("article"));
                 boolean checkBreak = true;
                 for (WebElement tweet : tweets) {
