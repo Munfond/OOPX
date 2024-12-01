@@ -53,7 +53,7 @@ public class CollectNameAndUrl {
                 previousSize = kolData.size();
 
                 // Cuộn xuống cuối trang
-                jsExecutor.executeScript("window.scrollBy(0, 500);");
+                jsExecutor.executeScript("window.scrollBy(0, 1000);");
                 Thread.sleep(2000); // Đợi nội dung mới tải
             }
 
