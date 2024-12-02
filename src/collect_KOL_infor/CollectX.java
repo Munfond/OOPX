@@ -3,7 +3,6 @@ package collect_KOL_infor;
 import java.time.Duration;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -14,7 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class CollectX {
     protected int collectLimitation;
-    protected Set<String> collection;
+    protected HashSet<String> collection;
     protected WebDriver driver;
 
     public CollectX(WebDriver driver) {
@@ -86,11 +85,11 @@ public abstract class CollectX {
         this.driver = driver;
     }
 
-    public Set<String> getCollection() {
+    public HashSet<String> getCollection() {
         return collection;
     }
 
-    public void setCollection(Set<String> collection) {
+    public void setCollection(HashSet<String> collection) {
         this.collection = collection;
     }
 

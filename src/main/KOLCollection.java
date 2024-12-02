@@ -10,8 +10,9 @@ import java.io.IOException;
 
 import java.util.Set;
 
+import login_and_search.KOLSearch;
 import login_and_search.LoginEngine;
-import login_and_search.SearchEngine;
+import login_and_search.TwitterLogin;
 import record_crawled_data.FileRecorded;
 
 import java.util.HashSet;
@@ -21,7 +22,7 @@ public class KOLCollection {
     public static void runKOLCollection() {
         try {
             Set<String> hashtagSet = new HashSet<>();
-            Set<String> KOLUrl = new HashSet<>();
+            HashSet<String> KOLUrl = new HashSet<>();
             URL url = KOLCollection.class.getProtectionDomain().getCodeSource().getLocation();
             
             String decodedPath = URLDecoder.decode(url.getPath(), StandardCharsets.UTF_8.name());
@@ -42,37 +43,46 @@ public class KOLCollection {
                 e.printStackTrace();
             }
 
-            LoginEngine loginEngine = new LoginEngine();
-            loginEngine.init();
-
-            for(String hashtag : hashtagSet) {
-                SearchEngine searchEngine = new SearchEngine(loginEngine.getLogin().getWebDriver());
-                searchEngine.init(hashtag);
+            LoginEngine login = new TwitterLogin();
+            login.setUrl("https://x.com/login");
+            login.getWeb();
+            login.init();
 
 
-                FileRecorded fileRecorded = new FileRecorded(loginEngine.getLogin().getWebDriver());
-                fileRecorded.getKOLs().crawlingInfor();
+
+            // for(String hashtag : hashtagSet) {
+            //     SearchEngine searchEngine = new SearchEngine(loginEngine.getLogin().getWebDriver());
+            //     searchEngine.init(hashtag);
 
 
-                for(String entry : fileRecorded.getKOLs().getCollection()) {
-                    KOLUrl.add(entry);
-                }
+            //     FileRecorded fileRecorded = new FileRecorded(loginEngine.getLogin().getWebDriver());
+            //     fileRecorded.getKOLs().crawlingInfor();
 
-                loginEngine.getLogin().getWebDriver().get("https://x.com/home");
 
-                try {
-                    Thread.sleep(5000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
+            //     for(String entry : fileRecorded.getKOLs().getCollection()) {
+            //         KOLUrl.add(entry);
+            //     }
 
-            FileRecorded fileRecorded = new FileRecorded(loginEngine.getLogin().getWebDriver());
+            //     loginEngine.getLogin().getWebDriver().get("https://x.com/home");
+
+            //     try {
+            //         Thread.sleep(5000);
+            //     } catch (InterruptedException e) {
+            //         e.printStackTrace();
+            //     }
+            // }
+            KOLSearch search = new KOLSearch(login.getWebDriver());
+            search.setSearchKeyword("#Blockchain");
+
+
+            FileRecorded fileRecorded = new FileRecorded(login.getWebDriver());
+            fileRecorded.getKOLs().crawlingInfor();
+
             fileRecorded.getKOLs().setCollection(KOLUrl);
-            fileRecorded.settingFile(loginEngine.getLogin().getWebDriver());
+            fileRecorded.settingFile(login.getWebDriver());
 
 
-            loginEngine.getLogin().getWebDriver().close();
+            login.close();
 
         } catch (Exception e) {
             e.printStackTrace();

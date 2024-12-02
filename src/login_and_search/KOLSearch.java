@@ -7,13 +7,18 @@ import org.openqa.selenium.WebElement;
 
 public class KOLSearch {
 	private  String searchKeyword;
+    private WebDriver driver;
 	private WebElement searchBox;
+
+    public KOLSearch(WebDriver driver) {
+        this.driver = driver;
+    }
 	
 	public void setsearchKeyword(String searchKeyword) {
 		this.searchKeyword = searchKeyword;
 	}
 	
-	public void searchKOL(WebDriver driver)
+	public void searchKOL()
 	{	
 		WebElement searchBox = driver.findElement(By.cssSelector("input[data-testid='SearchBox_Search_Input']"));
         searchBox.sendKeys(searchKeyword);
@@ -35,7 +40,7 @@ public class KOLSearch {
         }
 	}
 
-    public void returnToNextHashtag(WebDriver driver) {
+    public void returnToNextHashtag() {
         driver.get("https://x.com/home");
     }
 

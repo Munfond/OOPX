@@ -1,39 +1,15 @@
 package login_and_search;
 
-public class LoginEngine {
-	private TwitterLogin login;
-	private SetUp setUp;
-	
-	public LoginEngine() {
-		this.login = new TwitterLogin();
-		this.setUp = new SetUp();
-	}
-	
-	public void init() {
-		setUp.getInfor();
-		login.setAccount(setUp.getAccount());
-		
-		login.getToX();
-		login.fillGmail();
-		login.fillUserName();
-		login.fillPassword();
-	}
+import org.openqa.selenium.WebDriver;
 
-	public TwitterLogin getLogin() {
-		return login;
-	}
-
-	public void setLogin(TwitterLogin login) {
-		this.login = login;
-	}
-
-	public SetUp getSetUp() {
-		return setUp;
-	}
-
-	public void setSetUp(SetUp setUp) {
-		this.setUp = setUp;
-	}
-	
-	
-}
+public interface LoginEngine {
+	public void getWeb();
+	public void setUpInfor();
+	public void fillGmail();
+	public void fillUsername();
+	public void fillPassword();
+	public void close();
+	public void init();
+	public WebDriver getWebDriver();
+	public void setUrl(String url);
+} 

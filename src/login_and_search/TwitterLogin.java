@@ -12,18 +12,26 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 import java.time.Duration;
-public class TwitterLogin {
+public class TwitterLogin implements LoginEngine{
 	private WebDriver driver;
 	private AccountDetails account;
+	private String url;
+
 	
 	
 	public TwitterLogin () {
 		this.driver = new ChromeDriver();
 		this.account = new AccountDetails();
 	}
-	
-	public void getToX() {
-		driver.get("https://twitter.com/login");
+
+	@Override
+	public void setUpInfor() {
+		account.getInfor();
+	}
+
+	@Override
+	public void getWeb() {
+		driver.get(url);
 		try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
@@ -31,6 +39,7 @@ public class TwitterLogin {
         }
 	}
 	
+	@Override
 	public void fillGmail() {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		String gmail = account.getGmail();
@@ -47,7 +56,8 @@ public class TwitterLogin {
         }
 	}
 	
-	public void fillUserName() {
+	@Override
+	public void fillUsername() {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		String username = account.getUsername();
 		try {
@@ -63,6 +73,7 @@ public class TwitterLogin {
         }
 	}
 	
+	@Override
 	public void fillPassword() {
 		String password = account.getPassword();
 		WebElement passwordField = driver.findElement(By.name("password"));
@@ -74,22 +85,28 @@ public class TwitterLogin {
         }
 	}
 	
+	@Override
 	public void close() {
 		this.driver.close();
 	}
+
+	@Override
+	public void init() {
+		setUpInfor();
+		fillGmail();
+		fillUsername();
+		fillPassword();
+	}
 	
+	@Override
 	public WebDriver getWebDriver() {
 		return this.driver;
 	}
 
-	public void setAccount(AccountDetails account) {
-		this.account = account;
+	@Override
+	public void setUrl(String url){
+		this.url = url;
 	}
-
-	
-
-	
-
 
 	
 }
