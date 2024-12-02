@@ -91,7 +91,9 @@ public class TwitterLogin implements LoginEngine{
 	}
 
 	@Override
-	public void init() {
+	public void init(String url) {
+		setUrl(url);
+		getWeb();
 		setUpInfor();
 		fillGmail();
 		fillUsername();

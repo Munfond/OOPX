@@ -9,7 +9,7 @@ public interface LoginEngine {
 	public void fillUsername();
 	public void fillPassword();
 	public void close();
-	public void init();
+	public void init(String url);
 	public WebDriver getWebDriver();
 	public void setUrl(String url);
 } 

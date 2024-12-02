@@ -40,8 +40,9 @@ public class KOLSearch {
         }
 	}
 
-    public void returnToNextHashtag() {
-        driver.get("https://x.com/home");
+    public void init(String searchKeyword) {
+        setSearchKeyword(searchKeyword);
+        searchKOL();
     }
 
     public String getSearchKeyword() {

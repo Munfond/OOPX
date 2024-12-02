@@ -8,21 +8,18 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import java.util.Set;
 
 import login_and_search.KOLSearch;
 import login_and_search.LoginEngine;
 import login_and_search.TwitterLogin;
 import record_crawled_data.FileRecorded;
 
-import java.util.HashSet;
 
 
 public class KOLCollection {
     public static void runKOLCollection() {
         try {
-            Set<String> hashtagSet = new HashSet<>();
-            HashSet<String> KOLUrl = new HashSet<>();
+            String hashtag = "";
             URL url = KOLCollection.class.getProtectionDomain().getCodeSource().getLocation();
             
             String decodedPath = URLDecoder.decode(url.getPath(), StandardCharsets.UTF_8.name());
@@ -34,51 +31,23 @@ public class KOLCollection {
             System.setProperty("webdriver.chrome.driver", chromeDriverPath);
 
             try (BufferedReader br = new BufferedReader(new FileReader(hashtagFilePath))) {
-                String line;
-
-                while ((line = br.readLine()) != null) {
-                    hashtagSet.add(line);
-                }
+                hashtag = br.readLine();
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
             LoginEngine login = new TwitterLogin();
-            login.setUrl("https://x.com/login");
-            login.getWeb();
-            login.init();
+            login.init("https://x.com/login");
 
-
-
-            // for(String hashtag : hashtagSet) {
-            //     SearchEngine searchEngine = new SearchEngine(loginEngine.getLogin().getWebDriver());
-            //     searchEngine.init(hashtag);
-
-
-            //     FileRecorded fileRecorded = new FileRecorded(loginEngine.getLogin().getWebDriver());
-            //     fileRecorded.getKOLs().crawlingInfor();
-
-
-            //     for(String entry : fileRecorded.getKOLs().getCollection()) {
-            //         KOLUrl.add(entry);
-            //     }
-
-            //     loginEngine.getLogin().getWebDriver().get("https://x.com/home");
-
-            //     try {
-            //         Thread.sleep(5000);
-            //     } catch (InterruptedException e) {
-            //         e.printStackTrace();
-            //     }
-            // }
             KOLSearch search = new KOLSearch(login.getWebDriver());
-            search.setSearchKeyword("#Blockchain");
+            search.init(hashtag);
 
 
             FileRecorded fileRecorded = new FileRecorded(login.getWebDriver());
+            fileRecorded.getKOLs().setCollectLimitation(100);
             fileRecorded.getKOLs().crawlingInfor();
 
-            fileRecorded.getKOLs().setCollection(KOLUrl);
+            fileRecorded.getKOLs().setCollection(fileRecorded.getKOLs().getCollection());
             fileRecorded.settingFile(login.getWebDriver());
 
 

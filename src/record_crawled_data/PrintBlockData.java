@@ -14,6 +14,8 @@ public class PrintBlockData {
 	}
 	
 	public void printFile(String url, FileWriter writer) {
+        this.infor.getFollowers().setCollectLimitation(70);
+        this.infor.getTweets().setCollectLimitation(100);
         this.infor.getFollowers().getBrowser(url);
         this.infor.getFollowers().crawlingInfor();
         this.infor.getTweets().getBrowser(url);
