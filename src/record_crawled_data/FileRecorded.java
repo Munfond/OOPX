@@ -25,7 +25,7 @@ public class FileRecorded {
             try(FileWriter fw = new FileWriter(this.filepath)) {
                 fw.append("Link,Username,CountFollowers,Followers,CountTweets,Tweets\n");
                 for(String entry : KOLs.getCollection()) {
-                    PrintNode node = new PrintNode(driver);
+                    PrintBlockData node = new PrintBlockData(driver);
                     
                     // if(node.getInfor().getFollowers().getKOLNumberOfFollowers(entry) >= 50000) {
                     //     node.printFile(entry, fw);

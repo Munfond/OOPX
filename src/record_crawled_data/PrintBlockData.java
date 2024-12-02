@@ -5,11 +5,11 @@ import java.io.IOException;
 
 import org.openqa.selenium.WebDriver;
 
-public class PrintNode {
+public class PrintBlockData {
     private InforOfKOL infor;
 	private String logInfor = "";
 	
-	public PrintNode(WebDriver driver) {
+	public PrintBlockData(WebDriver driver) {
         this.infor = new InforOfKOL(driver);
 	}
 	
