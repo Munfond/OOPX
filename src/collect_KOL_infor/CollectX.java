@@ -1,5 +1,10 @@
 package collect_KOL_infor;
 
+import java.time.Duration;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -7,23 +12,24 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+public abstract class CollectX {
+    protected int collectLimitation;
+    protected Set<String> collection;
+    protected WebDriver driver;
 
-public class CollectNameAndUrl {
-    private int MAX_KOLS;
-    
+    public CollectX(WebDriver driver) {
+        this.driver = driver;
+        this.collection = new HashSet<>();
+    }
 
-    public Map<String, String> collectKOLData(WebDriver driver) {
+    public void crawlingInfor() {
         JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
-        Map<String, String> kolData = new HashMap<>();
+        
         try {
             int attempts = 0;
             int previousSize = 0;
 
-            while (kolData.size() < MAX_KOLS && attempts < MAX_KOLS) {
+            while (collection.size() < this.collectLimitation && attempts < this.collectLimitation) {
                 // Đợi phần tử xuất hiện
                 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
                 List<WebElement> kolProfiles = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(
@@ -32,25 +38,22 @@ public class CollectNameAndUrl {
 
                 // Thu thập dữ liệu
                 for (WebElement profile : kolProfiles) {
-                    String name = profile.findElement(By.cssSelector("span")).getText();
                     String url = profile.findElement(By.cssSelector("a")).getAttribute("href");
 
-                    if (!kolData.containsKey(name)) { // Tránh trùng lặp
-                        kolData.put(name, url);
-                    }
+                    collection.add(url);
 
-                    if (kolData.size() >= MAX_KOLS) {
+                    if (collection.size() >= this.collectLimitation) {
                         break;
                     }
                 }
 
                 // Kiểm tra nếu không có dữ liệu mới, dừng lại
-                if (kolData.size() == previousSize) {
+                if (collection.size() == previousSize) {
                     attempts++;
                 } else {
                     attempts = 0; // Reset nếu có thêm dữ liệu
                 }
-                previousSize = kolData.size();
+                previousSize = collection.size();
 
                 // Cuộn xuống cuối trang
                 jsExecutor.executeScript("window.scrollBy(0, 1000);");
@@ -61,19 +64,36 @@ public class CollectNameAndUrl {
             System.out.println("Error while collecting KOL data: " + e.getMessage());
         }
 
-        return kolData;
     }
 
+    public void getBrowser(String url) {
+        this.driver.get(url);
+    }
 
-	public int getMAX_KOLS() {
-		return MAX_KOLS;
-	}
+    public int getCollectLimitation() {
+        return collectLimitation;
+    }
 
+    public void setCollectLimitation(int collectLimitation) {
+        this.collectLimitation = collectLimitation;
+    }
 
-	public void setMAX_KOLS(int mAX_KOLS) {
-		MAX_KOLS = mAX_KOLS;
-	}
-    
+    public WebDriver getDriver() {
+        return driver;
+    }
+
+    public void setDriver(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    public Set<String> getCollection() {
+        return collection;
+    }
+
+    public void setCollection(Set<String> collection) {
+        this.collection = collection;
+    }
+
     
     
 }

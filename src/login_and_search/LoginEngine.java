@@ -1,6 +1,5 @@
-package kol_collection_engine;
+package login_and_search;
 
-import login_and_search.*;
 public class LoginEngine {
 	private TwitterLogin login;
 	private SetUp setUp;

@@ -1,8 +1,6 @@
-package kol_collection_engine;
+package login_and_search;
 
 import org.openqa.selenium.WebDriver;
-
-import login_and_search.KOLSearch;
 
 public class SearchEngine {
 	private KOLSearch kolSearch;

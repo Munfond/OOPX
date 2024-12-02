@@ -8,19 +8,20 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import java.util.Map;
 import java.util.Set;
 
-import java.util.HashMap;
+import login_and_search.LoginEngine;
+import login_and_search.SearchEngine;
+import record_crawled_data.FileRecorded;
+
 import java.util.HashSet;
 
-import kol_collection_engine.*;
 
 public class KOLCollection {
     public static void runKOLCollection() {
         try {
-            Map<String,String> kolData = new HashMap<>();
             Set<String> hashtagSet = new HashSet<>();
+            Set<String> KOLUrl = new HashSet<>();
             URL url = KOLCollection.class.getProtectionDomain().getCodeSource().getLocation();
             
             String decodedPath = URLDecoder.decode(url.getPath(), StandardCharsets.UTF_8.name());
@@ -47,12 +48,14 @@ public class KOLCollection {
             for(String hashtag : hashtagSet) {
                 SearchEngine searchEngine = new SearchEngine(loginEngine.getLogin().getWebDriver());
                 searchEngine.init(hashtag);
-                
-                CollectEngine collectEngine = new CollectEngine();
-                collectEngine.init(searchEngine.getDriver());
 
-                for(Map.Entry<String, String> entry : collectEngine.getKolData().entrySet()) {
-                    kolData.put(entry.getKey(), entry.getValue());
+
+                FileRecorded fileRecorded = new FileRecorded(loginEngine.getLogin().getWebDriver());
+                fileRecorded.getKOLs().crawlingInfor();
+
+
+                for(String entry : fileRecorded.getKOLs().getCollection()) {
+                    KOLUrl.add(entry);
                 }
 
                 loginEngine.getLogin().getWebDriver().get("https://x.com/home");
@@ -63,14 +66,14 @@ public class KOLCollection {
                     e.printStackTrace();
                 }
             }
-    		
-    		FileEngine KOLFile = new FileEngine();
-    		KOLFile.settingFile(kolData, loginEngine.getLogin().getWebDriver());
 
-    		
-    		
-    		loginEngine.getLogin().close();
-            
+            FileRecorded fileRecorded = new FileRecorded(loginEngine.getLogin().getWebDriver());
+            fileRecorded.getKOLs().setCollection(KOLUrl);
+            fileRecorded.settingFile(loginEngine.getLogin().getWebDriver());
+
+
+            loginEngine.getLogin().getWebDriver().close();
+
         } catch (Exception e) {
             e.printStackTrace();
         }

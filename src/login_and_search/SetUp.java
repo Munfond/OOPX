@@ -23,7 +23,7 @@ public class SetUp {
 			URL url = SetUp.class.getProtectionDomain().getCodeSource().getLocation();
 			String decodedPath = URLDecoder.decode(url.getPath(), StandardCharsets.UTF_8.name());  	
 	    	File parentFile = new File(decodedPath);
-	    	this.accountInforPath = parentFile.getPath() + "\\resources\\infor";
+	    	this.accountInforPath = parentFile.getPath() + "\\resources\\infor.txt";
 		} catch(Exception e) {
 			System.out.println("Có lỗi xảy ra khi đọc file: " + e.getMessage());
 		}
