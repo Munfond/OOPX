@@ -44,7 +44,7 @@ public class KOLCollection {
 
 
             FileRecorded fileRecorded = new FileRecorded(login.getWebDriver());
-            fileRecorded.getKOLs().setCollectLimitation(100);
+            fileRecorded.getKOLs().setCollectLimitation(50);
             fileRecorded.getKOLs().crawlingInfor();
 
             fileRecorded.getKOLs().setCollection(fileRecorded.getKOLs().getCollection());
