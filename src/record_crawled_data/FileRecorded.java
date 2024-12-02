@@ -27,10 +27,10 @@ public class FileRecorded {
                 for(String entry : KOLs.getCollection()) {
                     PrintBlockData node = new PrintBlockData(driver);
                     
-                    // if(node.getInfor().getFollowers().getKOLNumberOfFollowers(entry) >= 50000) {
-                    //     node.printFile(entry, fw);
-                    //     System.out.println("Lưu thông tin node thành công");
-                    // }
+                    if(node.getInfor().getFollowers().getKOLNumberOfFollowers(entry) >= 50000) {
+                        node.printFile(entry, fw);
+                        System.out.println("Lưu thông tin node thành công");
+                    }
 
                     node.printFile(entry, fw);
                     System.out.println("Save node data successfully");
