@@ -29,12 +29,8 @@ public class FileRecorded {
                     
                     if(node.getInfor().getFollowers().getKOLNumberOfFollowers(entry) >= 50000) {
                         node.printFile(entry, fw);
-                        System.out.println("Lưu thông tin node thành công");
-                    }
-
-                    node.printFile(entry, fw);
-                    System.out.println("Save node data successfully");
-                    
+                        System.out.println("Save node data successfully");
+                    }                  
                 }
             }
     
