@@ -12,6 +12,8 @@ import collect_KOL_infor.KOL;
 public class FileRecorded {
     private String filepath = "src/output/data.csv";
     private KOL KOLs;
+    private int countBlocks = 0;
+    private final int MAX_BLOCKS = 50;
     
 	public FileRecorded(WebDriver driver) {
         this.KOLs = new KOL(driver);
@@ -29,8 +31,13 @@ public class FileRecorded {
                     
                     if(node.getInfor().getFollowers().getKOLNumberOfFollowers(entry) >= 50000) {
                         node.printFile(entry, fw);
+                        this.countBlocks ++;
                         System.out.println("Save node data successfully");
-                    }                  
+                    }      
+                    
+                    if(this.countBlocks >= MAX_BLOCKS) {
+                        break;
+                    }
                 }
             }
     
