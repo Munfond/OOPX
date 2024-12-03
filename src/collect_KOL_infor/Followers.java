@@ -17,7 +17,7 @@ public class Followers extends CollectX {
     }
 
     public int  getKOLNumberOfFollowers(String url) {
-        getBrowser(url);
+        super.getBrowser(url);
 		
         try {
             Thread.sleep(5000);
